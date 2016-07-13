@@ -17,3 +17,55 @@
     //ES5
     console.log(Array.isArray(a)) //true    
 </pre>
+
+<h3>OOP explanation </h3>
+<pre>
+    function animal() {
+    this.name = 'animal';    
+    this.sayAnimal = function () {
+        console.log('this is animal');
+        }
+    }
+
+    function cat() {
+        animal.call(this);
+        this.name = 'cat';  
+        this.sayCat = function () {
+            console.log('this is cat');
+        }  
+    }
+
+    function child() {
+        cat.call(this);
+        this.name = 'child';
+        this.sayChild = function () {
+            console.log('this is child');
+        }
+    }
+
+    (function () {
+        var objAnimal = Object.create(animal.prototype);
+        
+        console.log(objAnimal.constructor);
+        console.log(cat.constructor);
+        
+        cat.prototype = objAnimal;
+        
+        console.log(objAnimal.constructor);
+        console.log(cat.constructor);
+
+        cat.prototype.constructor = cat;
+        
+        console.log(objAnimal.constructor);
+        console.log(cat.constructor);
+
+        var objCat = new cat();
+        console.log(objAnimal.constructor);
+        console.log(objCat.constructor);
+
+        child.prototype = Object.create(cat.prototype);
+        //child.prototype.constructor = child;
+
+        //objCat.sayCat();
+    })()
+</pre>

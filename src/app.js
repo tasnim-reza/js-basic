@@ -1,42 +1,70 @@
-function Inherit(child, parent){
-    child.prototype = Object.create(parent.prototype);
-    child.prototype.constructor = child;    
-}
-
-function Animal(name){
-    this.localName = name;
-    console.log('inside animal ', this.localName);
+(function () {
+    'use strict';
     
-    this.sayAgain = function () {
-        console.log('say again');
+    //route registration
+    window.routeService.register({
+        name: 'detail',
+        url: function (param) {
+            return '#/' + this.name + '/' + param;
+        },
+        //handler: fileDetailsHandler
+    })
+
+    window.routeService.register({
+        name: 'home',
+        url: function (param) {
+            return '#/' + this.name;
+        },
+        templateUrl: 'templates/hoisting-explained.html'
+        //handler: homeRouteHandler
+    })
+
+    window.routeService.register({
+        name: 'array-explanation',
+        url: function (param) {
+            return '#/' + this.name;
+        },
+        templateUrl: 'templates/array-explanation.html'
+        //handler: homeRouteHandler
+    })
+
+    window.routeService.register({
+        name: 'functional-programming',
+        url: function (param) {
+            return '#/' + this.name;
+        },
+        templateUrl: 'templates/functional-programming.html'
+        //handler: homeRouteHandler
+    })
+    
+    window.routeService.register({
+        name: 'oop-explained',
+        url: function (param) {
+            return '#/' + this.name;
+        },
+        templateUrl: 'templates/oop-explained.html'
+        //handler: homeRouteHandler
+    })
+    
+    window.routeService.register({
+        name: 'page-1',
+        url: function (param) {
+            return '#/' + this.name;
+        },
+        templateUrl: 'templates/page-1.html'
+        //handler: homeRouteHandler
+    })
+
+    function goToPreviousRoute(params) {
+        routeService.goToNext();
     }
-}
 
-Animal.prototype.say = function () {
-    console.log('From animal', this.localName);
-}
+    function goToNextRoute(params) {
+        routeService.goToNext();
+    }
 
-function Cat() {
-    
-}
+    document.querySelector('.prev').addEventListener('click', goToPreviousRoute);
+    document.querySelector('.next').addEventListener('click', goToNextRoute);
 
-Cat.prototype.say = function () {
-    this.say.call(this);
-    console.log('From cat', this.localName);
-}
-
-Inherit(Cat, Animal);
-
-function Baby(params) {    
-    
-}
-
-Inherit(Baby, Cat);
-
-(function test() {
-    var b = new Baby();
-    //Animal.call(b, 'reza');
-    b.say();
-    //b.sayAgain();
-})();
-
+    //register the singleton services 
+})()
