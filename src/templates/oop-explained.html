@@ -1,0 +1,19 @@
+<h3>Check an array</h3>
+<pre>
+    var a = [0,1,2];
+    console.log(typeof a) //object
+    
+    /*
+    instanceof will fail for window and iframe
+    */
+    console.log(a instanceof Array) //true    
+    console.log(a instanceof Object) //true
+    
+    var type = Object.prototype.toString.call(a);
+    console.log(type)   //[object Array]
+                        //this approach support accross all the 
+                        //browser
+    console.log(arr.constructor); //Array
+    //ES5
+    console.log(Array.isArray(a)) //true    
+</pre>
