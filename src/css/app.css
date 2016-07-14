@@ -1,8 +1,13 @@
 body{
     background: #e2e2e2;
 }
+
 pre{
     color: #808080;
     background: #1D1F20;
     padding: 15px;
+}
+
+.slide:not(:first-child) {
+    display: none;
 }

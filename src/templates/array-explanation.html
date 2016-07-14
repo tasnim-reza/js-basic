@@ -1,73 +1,84 @@
-<h3>Check an array</h3>
-<pre>
-    var a = [0,1,2];
-    console.log(typeof a) //object
-    
-    /*
-    instanceof will fail for window and iframe
-    */
-    console.log(a instanceof Array) //true    
-    console.log(a instanceof Object) //true
-    
-    var type = Object.prototype.toString.call(a);
-    console.log(type)   //[object Array]
-                        //this approach support accross all the 
-                        //browser
-    console.log(arr.constructor); //Array
-    //ES5
-    console.log(Array.isArray(a)) //true    
-</pre>
 
-<h3>Empty an array</h3>
-<pre>
-    var a = [0,1,2];
-    console.log(a.length) //3
-    
-    a = [];
-    console.log(a.length) //0 empty
-    console.log(a)// []
-    
-    //again
-    a= [1,2,3];
-    console.log(a.length) //3
-    
-    a.length = 0;
-    console.log(a.length) //0
-    
-    /*
-    you can empty an array by setting the length property 0;
-    */
-</pre>
+<div class="slide">
+    <h3>Check an array</h3>
+    <pre>
+        var a = [0,1,2];
+        console.log(typeof a) //object
+        
+        /*
+        instanceof will fail for window and iframe
+        */
+        console.log(a instanceof Array) //true    
+        console.log(a instanceof Object) //true
+        
+        var type = Object.prototype.toString.call(a);
+        console.log(type)   //[object Array]
+                            //this approach support accross all the 
+                            //browser
+        console.log(arr.constructor); //Array
+        //ES5
+        console.log(Array.isArray(a)) //true    
+    </pre>
+</div>
 
-<h3>Decrease array index</h3>
-<pre>
-    var a = [0,1,2];
-    console.log(a.length) //3
-    
-    a.length = 2;
-    console.log(a.length) //2
-    console.log(a)// 0,1
-    
-    /*
-    It will remove the elements from last
-    */
-</pre>
+<div class="slide">
+    <h3>Empty an array</h3>
+    <pre>
+        var a = [0,1,2];
+        console.log(a.length) //3
+        
+        a = [];
+        console.log(a.length) //0 empty
+        console.log(a)// []
+        
+        //again
+        a= [1,2,3];
+        console.log(a.length) //3
+        
+        a.length = 0;
+        console.log(a.length) //0
+        
+        /*
+        you can empty an array by setting the length property 0;
+        */
+    </pre>
+</div>
 
-<h3>Increase array index</h3>
-<pre>
-    var a = [0,1,2];
-    console.log(a.length) //3
-    
-    a.length = 10;
-    console.log(a.length) //10
-    console.log(a)// 0,1,2
-</pre>
+<div class="slide">
+    <h3>Decrease array index</h3>
+    <pre>
+        var a = [0,1,2];
+        console.log(a.length) //3
+        
+        a.length = 2;
+        console.log(a.length) //2
+        console.log(a)// 0,1
+        
+        /*
+        It will remove the elements from last
+        */
+    </pre>
+</div>
 
-<h3>Increase array index</h3>
-<pre>
-    var a = [0,1,2];
-    console.log(a.length) //3
-    
-    a[5] = 5;    
-    console.log(a.length) //6 
-</pre>
+<div class="slide">
+    <h3>Increase array index</h3>
+    <pre>
+        var a = [0,1,2];
+        console.log(a.length) //3
+        
+        a.length = 10;
+        console.log(a.length) //10
+        console.log(a)// 0,1,2
+    </pre>
+</div>
+
+<div class="slide">
+    <h3>Increase array index</h3>
+    <pre>
+        var a = [0,1,2];
+        console.log(a.length) //3
+        
+        a[5] = 5;    
+        console.log(a.length) //6 
+    </pre>
+</div>

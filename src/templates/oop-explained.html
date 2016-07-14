@@ -1,71 +1,75 @@
-<h3>Check an array</h3>
-<pre>
-    var a = [0,1,2];
-    console.log(typeof a) //object
-    
-    /*
-    instanceof will fail for window and iframe
-    */
-    console.log(a instanceof Array) //true    
-    console.log(a instanceof Object) //true
-    
-    var type = Object.prototype.toString.call(a);
-    console.log(type)   //[object Array]
-                        //this approach support accross all the 
-                        //browser
-    console.log(arr.constructor); //Array
-    //ES5
-    console.log(Array.isArray(a)) //true    
-</pre>
+<div class="slide">
+    <h3>Check an array</h3>
+    <pre>
+        var a = [0,1,2];
+        console.log(typeof a) //object
+        
+        /*
+        instanceof will fail for window and iframe
+        */
+        console.log(a instanceof Array) //true    
+        console.log(a instanceof Object) //true
+        
+        var type = Object.prototype.toString.call(a);
+        console.log(type)   //[object Array]
+                            //this approach support accross all the 
+                            //browser
+        console.log(arr.constructor); //Array
+        //ES5
+        console.log(Array.isArray(a)) //true    
+    </pre>
+</div>
 
-<h3>OOP explanation </h3>
-<pre>
-    function animal() {
-    this.name = 'animal';    
-    this.sayAnimal = function () {
-        console.log('this is animal');
+<div class="slide">
+    <h3>OOP explanation </h3>
+    <pre>
+        function animal() {
+        this.name = 'animal';    
+        this.sayAnimal = function () {
+            console.log('this is animal');
+            }
         }
-    }
 
-    function cat() {
-        animal.call(this);
-        this.name = 'cat';  
-        this.sayCat = function () {
-            console.log('this is cat');
-        }  
-    }
-
-    function child() {
-        cat.call(this);
-        this.name = 'child';
-        this.sayChild = function () {
-            console.log('this is child');
+        function cat() {
+            animal.call(this);
+            this.name = 'cat';  
+            this.sayCat = function () {
+                console.log('this is cat');
+            }  
         }
-    }
 
-    (function () {
-        var objAnimal = Object.create(animal.prototype);
-        
-        console.log(objAnimal.constructor);
-        console.log(cat.constructor);
-        
-        cat.prototype = objAnimal;
-        
-        console.log(objAnimal.constructor);
-        console.log(cat.constructor);
+        function child() {
+            cat.call(this);
+            this.name = 'child';
+            this.sayChild = function () {
+                console.log('this is child');
+            }
+        }
 
-        cat.prototype.constructor = cat;
-        
-        console.log(objAnimal.constructor);
-        console.log(cat.constructor);
+        (function () {
+            var objAnimal = Object.create(animal.prototype);
+            
+            console.log(objAnimal.constructor);
+            console.log(cat.constructor);
+            
+            cat.prototype = objAnimal;
+            
+            console.log(objAnimal.constructor);
+            console.log(cat.constructor);
 
-        var objCat = new cat();
-        console.log(objAnimal.constructor);
-        console.log(objCat.constructor);
+            cat.prototype.constructor = cat;
+            
+            console.log(objAnimal.constructor);
+            console.log(cat.constructor);
 
-        child.prototype = Object.create(cat.prototype);
-        //child.prototype.constructor = child;
+            var objCat = new cat();
+            console.log(objAnimal.constructor);
+            console.log(objCat.constructor);
 
-        //objCat.sayCat();
-    })()
-</pre>
+            child.prototype = Object.create(cat.prototype);
+            //child.prototype.constructor = child;
+
+            //objCat.sayCat();
+        })()
+    </pre>
+</div>

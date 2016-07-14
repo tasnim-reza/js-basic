@@ -5,7 +5,9 @@
         hash = window.location.hash,
         prevRoute = null,
         currentRoute = 'home',
-        currentIdx = 0;
+        currentIdx = 0,
+        onRouteLoadListeners = [],
+        onRouteDestroyListeners = null;
 
     window.setTimeout(function () {
         if (hash.indexOf('#') > -1) {
@@ -37,11 +39,22 @@
             routes[param.name] = param;
         },
 
+        registerOnRouteLoad: function (func) {
+            //onRouteLoadListeners.push()
+            onRouteLoadListeners = func;
+        },
+
+        registerOnRouteDestroy: function (func) {
+            //onRouteDestroyListeners.push()
+            onRouteDestroyListeners = func;
+        },
+
         goToNext: function () {
             var keys = Object.keys(routes);
                 currentIdx = keys.indexOf(currentRoute);
                 //var nextIdx = currentIdx++,
                 var nextRoute = keys[++currentIdx];
+                currentRoute = nextRoute;
 
             this.go(nextRoute, routes[nextRoute]);
         },
@@ -61,8 +74,13 @@
         window.location.href = url;
         prevRoute = url;
         //route.handler.call(this, param)
+        if(onRouteDestroyListeners) onRouteDestroyListeners.call(null);
+        
         var view = document.querySelector('#view');
         view.innerHTML = result;
+
+        if(onRouteLoadListeners) onRouteLoadListeners.call(null);
+        
     }
 
     window.routeService = publicService;
