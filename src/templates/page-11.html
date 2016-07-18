@@ -1,0 +1,522 @@
+<div class="slide">
+    <h3>Using “Object.create” instead of “new”</h3>
+    <pre>
+        /*
+        This methods allows you to easily implement differential inheritance, where objects can directly inherit from other objects.
+
+        On your userB example, I don't think that your init method should be public or even exist, if you call again this method on an existing object instance, the id and name properties will change.
+
+        Object.create lets you initialize object properties using its second argument, e.g.:
+        */
+
+        var userB = {
+        sayHello: function() {
+            console.log('Hello '+ this.name);
+            }
+        };
+
+        var bob = Object.create(userB, {
+        'id' : {
+            value: MY_GLOBAL.nextId(),
+            enumerable:true // writable:false, configurable(deletable):false by default
+        },
+        'name': {
+            value: 'Bob',
+            enumerable: true
+        }
+        });
+
+        /*
+        As you can see, the properties can be initialized on the second argument of Object.create, with an object literal using a syntax similar to the used by the Object.defineProperties and Object.defineProperty methods.
+
+        It lets you set the property attributes (enumerable, writable, or configurable), which can be really useful.
+        */
+    </pre>
+
+    <h3>window.onload vs document.onload</h3>
+    <div>
+        <h4>window.onload</h4>
+
+        By default, it is fired when the entire page loads, including its content (images, css, scripts, etc.)
+        
+        In some browsers it now takes over the role of document.onload and fires when the DOM is ready as well.
+
+        <h4>document.onload</h4>
+
+        It is called when the DOM is ready which can be prior to images and other external content is loaded.
+
+        How well are they supported?
+
+        window.onload appears to be the most widely supported. In fact, some of the most modern browsers have in a sense replaced document.onload with window.onload. Browser support issues are most likely the reason why many people are starting to use libraries such as jQuery to handle the checking for the document being ready.
+    </div>
+
+    <h3>How to send FormData objects with Ajax-requests in jQuery?</h3>
+    <pre>
+        var fd = new FormData();    
+        fd.append( 'file', input.files[0] );
+
+        $.ajax({
+        url: 'http://example.com/script.php',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function(data){
+            alert(data);
+        }
+        });
+    </pre>
+
+    <h3>Accessing the web page's HTTP Headers in JavaScript</h3>
+    <pre>
+        var req = new XMLHttpRequest();
+        req.open('GET', document.location, false);
+        req.send(null);
+        var headers = req.getAllResponseHeaders().toLowerCase();
+        alert(headers);
+    </pre>
+
+    <h3>How do I implement a Dictionary or Hashtable in Javascript?</h3>
+    <pre>
+        var associativeArray = {};
+        associativeArray["one"] = "First";
+        associativeArray["two"] = "Second";
+        associativeArray["three"] = "Third";
+    </pre>
+
+    <h3>Sound effects in JavaScript / HTML5</h3>
+    <pre>
+        var snd = new Audio("file.wav"); // buffers automatically when created
+        snd.play();
+    </pre>
+
+    <h3>How do I replace a character at a particular index in JavaScript?</h3>
+    <pre>
+        /*
+        In JavaScript, strings are immutable, which means the best you can do is create a new string with the changed content, and assign the variable to point to it.
+
+        You'll need to define the replaceAt() function yourself:
+        */
+
+        String.prototype.replaceAt=function(index, character) {
+            return this.substr(0, index) + character + this.substr(index+character.length);
+        }
+
+        var str = "hello world";
+        str = str.replaceAt(3, "a");
+    </pre>
+
+    <h3>Most efficient way to create a zero filled JavaScript array?</h3>
+    <pre>
+        /*
+        Although this is an old thread, I wanted to add my 2 cents to it. Not sure how slow/fast this is, but it's a quick one liner. Here is what I do:
+
+        If I want to pre-fill with a number:
+        */
+
+        Array.apply(null, Array(5)).map(Number.prototype.valueOf,0);
+        // [0, 0, 0, 0, 0]
+       
+        /*
+        If I want to pre-fill with a string:
+        */
+
+        Array.apply(null, Array(3)).map(String.prototype.valueOf,"hi")
+        // ["hi", "hi", "hi"]
+
+        /*
+        Other answers have suggested:
+        */
+
+        new Array(5+1).join('0').split('')
+        // ["0", "0", "0", "0", "0"]
+
+        /*
+        If I want to pre-fill with a string:but if you want 0 (the number) and not "0" (zero inside a string), you can do:
+        */
+
+        new Array(5+1).join('0').split('').map(parseFloat)
+        // [0, 0, 0, 0, 0]
+    </pre>
+
+    <h3>How to trigger event in JavaScript?</h3>
+    <pre>
+        /*
+        You can use fireEvent on IE, and w3c's dispatchEvent on most other browsers. To create the event you want to fire, you can use either createEvent or createEventObject depending on the browser.
+
+        Here is a self-explanatory piece of code (from prototype) that fires an event dataavailable on an element:
+        */
+
+         var event; // The custom event that will be created
+
+        if (document.createEvent) {
+            event = document.createEvent("HTMLEvents");
+            event.initEvent("dataavailable", true, true);
+        } else {
+            event = document.createEventObject();
+            event.eventType = "dataavailable";
+        }
+
+        event.eventName = "dataavailable";
+
+        if (document.createEvent) {
+            element.dispatchEvent(event);
+        } else {
+            element.fireEvent("on" + event.eventType, event);
+        }
+       
+    </pre>
+
+    <h3>Change the URL in the browser without loading the new page using JavaScript</h3>
+    <pre>
+        /*
+
+        If you want it to work in browsers that don't support history.pushState and history.popState yet, the "old" way is to set the fragment identifier, which won't cause a page reload.
+
+        The basic idea is to set the window.location.hash property to a value that contains whatever state information you need, then either use the window.onhashchange event, or for older browsers that don't support onhashchange (IE < 8, Firefox < 3.6), periodically check to see if the hash has changed (using setInterval for example) and update the page. You will also need to check the hash value on page load to set up the initial content.
+
+        If you're using jQuery there's a hashchange plugin that will use whichever method the browser supports. I'm sure there are plugins for other libraries as well.
+
+        One thing to be careful of is colliding with ids on the page, because the browser will scroll to any element with a matching id.
+
+        */
+
+        var stateObj = { foo: "bar" };
+        function change_my_url()
+        {
+        history.pushState(stateObj, "page 2", "bar.html");
+        }
+        var link = document.getElementById('click');
+        link.addEventListener('click', change_my_url, false);
+       
+    </pre>
+
+    <h3>Why doesn't indexOf work on an array IE8?</h3>
+    <pre>
+        /*
+
+        Versions of IE before IE9 don't have an .indexOf() function for Array, to define the exact spec version, run this before trying to use it:
+
+        */
+
+        if (!Array.prototype.indexOf)
+        {
+        Array.prototype.indexOf = function(elt /*, from*/)
+        {
+            var len = this.length >>> 0;
+
+            var from = Number(arguments[1]) || 0;
+            from = (from < 0)
+                ? Math.ceil(from)
+                : Math.floor(from);
+            if (from < 0)
+            from += len;
+
+            for (; from < len; from++)
+            {
+            if (from in this &&
+                this[from] === elt)
+                return from;
+            }
+            return -1;
+        };
+        }
+       
+       /*
+
+        This is the version from MDC, used in Firefox/SpiderMonkey. In other cases such as IE, it'll add .indexOf() in the case it's missing...basically IE8 or below at this point.
+
+        */
+    </pre>
+
+    <h3>Convert string to title case with javascript</h3>
+    <pre>
+        function toTitleCase(str)
+        {
+            return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+        }
+    </pre>
+
+    <h3>Re-enabling window.alert in Chrome</h3>
+    <pre>
+        /*
+        Close and re-open the tab. That should do the trick.
+        */
+    </pre>
+
+    <h3>“Cross origin requests are only supported for HTTP.” error when loading a local file</h3>
+    <pre>
+        /*
+        
+
+        My crystal ball says that you are loading the model using either file:// or C:/, which stays true to the error message as they are not http://
+
+        So you can either install a webserver in your local PC or upload the model somewhere else and use jsonp and change the url to http://example.com/path/to/model
+
+        */
+    </pre>
+
+    <h3>How do I do string replace in JavaScript to convert ‘9.61’ to ‘9:61’?</h3>
+    <pre>
+        var value = "9.61" // value = 9.61 use $("#text").text() if you are not on select box...
+        value = value.replace(".", ":"); // value = 9:61
+        // can then use it as
+    </pre>
+
+    <h3>How do you reverse a string in place in JavaScript?</h3>
+    <pre>
+        /*
+        As long as you're dealing with simple ASCII characters, and you're happy to use built-in functions, this will work:
+        */
+        function reverse(s){
+            return s.split("").reverse().join("");
+        }
+
+        /*
+        If you need a solution that supports UTF-16 or other multi-byte characters, be aware that this function will give invalid unicode strings, or valid strings that look funny. You might want to consider this answer instead.
+        */
+    </pre>
+
+    <h3>Is object empty?</h3>
+    <pre>
+        // Speed up calls to hasOwnProperty
+        var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+        function isEmpty(obj) {
+
+            // null and undefined are "empty"
+            if (obj == null) return true;
+
+            // Assume if it has a length property with a non-zero value
+            // that that property is correct.
+            if (obj.length > 0)    return false;
+            if (obj.length === 0)  return true;
+
+            // Otherwise, does it have any properties of its own?
+            // Note that this doesn't handle
+            // toString and valueOf enumeration bugs in IE < 9
+            for (var key in obj) {
+                if (hasOwnProperty.call(obj, key)) return false;
+            }
+
+            return true;
+        }
+
+        //Examples:
+
+        isEmpty(""), // true
+        isEmpty([]), // true
+        isEmpty({}), // true
+        isEmpty({length: 0, custom_property: []}), // true
+
+        isEmpty("Hello"), // false
+        isEmpty([1,2,3]), // false
+        isEmpty({test: 1}), // false
+        isEmpty({length: 3, custom_property: [1,2,3]}) // false
+
+        /*
+        If you only need to handle ECMAScript5 browsers, you can use Object.getOwnPropertyNames instead of the hasOwnProperty loop:
+
+        if (Object.getOwnPropertyNames(obj).length > 0) return false;
+
+        This will ensure that even if the object only has non-enumerable properties isEmpty will still give you the correct results.
+        */
+    </pre>
+
+    <h3>What underlies this JavaScript idiom: var self = this?</h3>
+    <pre>
+        /*
+        self is being used to maintain a reference to the original this even as the context is changing. It's a technique often used in event handlers (especially in closures).
+        */
+    </pre>
+
+    <h3>JavaScript function in href vs. onclick</h3>
+    <pre>
+
+        /*
+        bad:
+        */
+
+        <a id="myLink" href="javascript:MyFunction();">link text</a>
+
+        /*
+        good:
+        */
+
+        <a id="myLink" href="#" onclick="MyFunction();">link text</a>
+
+        /*
+        better:
+        */
+
+        <a id="myLink" href="#" onclick="MyFunction();return false;">link text</a>
+
+        /*
+        even better 1:
+        */
+
+        <a id="myLink" title="Click to do something"
+        href="#" onclick="MyFunction();return false;">link text</a>
+
+        /*
+        even better 2:
+        */
+
+        <a id="myLink" title="Click to do something"
+        href="PleaseEnableJavascript.html" onclick="MyFunction();return false;">link text</a>
+
+        /*
+        Why better? because return false will prevent browser from following the link
+        */
+
+        /*
+        best:
+
+        Use jQuery or other similar framework to attach onclick handler by element's ID.
+        */
+
+        $('#myLink').click(function(){ MyFunction(); return false; });
+
+    </pre>
+
+    <h3>How to store arbitrary data for some HTML tags</h3>
+    <pre>
+        /*
+                
+        Which version of HTML are you using?
+
+        In HTML 5, it is totally valid to have custom attributes prefixed with data-, e.g.
+        */
+
+        <div data-internalid="1337"></div>
+
+        /*
+        In XHTML, this is not really valid. If you are in XHTML 1.1 mode, the browser will probably complain about it, but in 1.0 mode, most browsers will just silently ignore it.
+
+        If I were you, I would follow the script based approach. You could make it automatically generated on server side so that it's not a pain in the back to maintain.
+        
+        */
+    </pre>
+
+    <h3>Fastest method to replace all instances of a character in a string</h3>
+    <pre>
+        /*
+        The easiest would be to use a regular expression with g flag to replace all instances:
+        */
+       
+        str.replace(/foo/g, "bar")
+       
+        /*
+        This will replace all occurrences. If you just have a string, you can convert it to a RegExp object like this:
+        */
+
+        var pattern = "foobar",
+            re = new RegExp(pattern, "g");
+    </pre>
+
+    <h3>How to get first character of string?</h3>
+    <pre>
+        var x = 'some string';
+        alert(x.charAt(0)); // alerts 's'
+    </pre>
+
+    <h3>Resize HTML5 canvas to fit window</h3>
+    <pre>
+        /*
+        I believe I have found an elegant solution to this:
+        */
+
+        /* important! for alignment, you should make things
+        * relative to the canvas' current width/height.
+        */
+        function draw() {
+        var ctx = (a canvas context);
+        ctx.canvas.width  = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+        //...drawing code...
+        }
+
+        html, body {
+        width:  100%;
+        height: 100%;
+        margin: 0px;
+        }
+    </pre>
+
+    <h3>How to count string occurrence in string?</h3>
+    <pre>
+        /*
+        The g in the regular expression (short for global) says to search the whole string rather than just find the first occurrence:
+        */
+        var temp = "This is a string.";
+        var count = (temp.match(/is/g) || []).length;
+        console.log(count)
+    </pre>
+
+    <h3>Getting random value from an array</h3>
+    <pre>
+        var myArray = ['January', 'February', 'March'];  
+        var rand = myArray[Math.floor(Math.random() * myArray.length)];
+    </pre>
+
+    <h3>'innerText' works in IE, but not in Firefox</h3>
+    <pre>
+        /*
+        Firefox uses the W3C-compliant textContent property.
+
+        I'd guess Safari and Opera also support this property.
+        */
+        myElement.innerText = "foo";
+    </pre>
+
+    <h3>What's the best way to detect a 'touch screen' device using JavaScript?</h3>
+    <pre>
+        /*
+        Have you tried using this function? (This is the same as Modernizr used to use.)
+        */
+        function is_touch_device() {  
+            try {  
+                document.createEvent("TouchEvent");  
+                return true;  
+            } catch (e) {  
+                return false;  
+            }  
+        }
+
+        /*
+        UPDATE:
+
+        document.createEvent("TouchEvent") have started to return true in the latest chrome (v. 17). Modernizr updated this a while ago. Check Modernizr test out here.
+
+        Update your function like this to make it work:
+        */
+        function is_touch_device() {
+            return 'ontouchstart' in window;
+        }
+
+        /*
+        UPDATE:
+
+        I found that the above wasn't working on IE10 (returning false on MS Surface). Here is the fix:
+        */
+        function is_touch_device() {
+            return 'ontouchstart' in window        // works on most browsers 
+                || 'onmsgesturechange' in window;  // works on IE10 with some false positives
+        };
+
+        /*
+        UPDATE:
+
+        'onmsgesturechange' in window will return true in some IE desktop versions so thats not reliable. This works slightly more reliably:
+        */
+        function is_touch_device() {
+            return 'ontouchstart' in window        // works on most browsers 
+                || navigator.maxTouchPoints;       // works on IE10/11 and Surface
+        };
+        /*
+        Or Modernizr have updated their tests to include some CSS media-query magic, so you could try that.
+
+        But these are all still far from perfect. For a good article that explains the issues with touch detection, 
+        */
+    </pre>
+</div>
