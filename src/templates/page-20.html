@@ -14,7 +14,7 @@
        box.addEventListener( 'webkitTransitionEnd transitionend oTransitionEnd',function(event) {alert("Finished transition!");}, false );  <br/>       /* webkitTransitionEnd for Chorme ,  transitionEnd for Mozilla and Internet Explorer, oTransitionEnd for Opera */
     </pre>
 
-    <h3>how to break the _.each function in underscore.js ?</h3>
+    <h3>How to break the _.each function in underscore.js ?</h3>
         <p> You can't break from the each method it emulates the native forEach method's behavior, and the native forEach doesn't provide to escape the loop (other than throwing an exception).</p>
         <h4>However, all hope is not lost! You can use the Array.every method. :)</h4>
         <p>so, every executes the provided callback function once for each element present in the array until it finds one where callback returns a false value. If such an element is found, the every method immediately returns false.</p>
@@ -24,5 +24,58 @@
          });
     </pre>
     <p>This will alert 1 through 3, and then "break" out of the loop.</p>
+
+    <h3>Whats the best way to print the contents of a DIV?</h3>
+    <pre>
+        <html>
+        <head>
+        <script type="text/javascript" src="jquery-1.3.1.min.js" > </script>
+        <script type="text/javascript">
+
+            function PrintElem(elem)
+            {
+                Popup($(elem).html());
+            }
+
+            function Popup(data)
+            {
+                var mywindow = window.open('', 'my div', 'height=400,width=600');
+                mywindow.document.write('<html><head><title>my div</title>');
+                /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+                mywindow.document.write('</head><body >');
+                mywindow.document.write(data);
+                mywindow.document.write('</body></html>');
+
+                mywindow.document.close(); // necessary for IE >= 10
+                mywindow.focus(); // necessary for IE >= 10
+
+                mywindow.print();
+                mywindow.close();
+
+                return true;
+            }
+
+        </script>
+        </head>
+        <body>
+
+        <div id="mydiv">
+            This will be printed. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque a quam at nibh adipiscing interdum. Nulla vitae accumsan ante.
+        </div>
+
+        <div>
+            This will not be printed.
+        </div>
+
+        <div id="anotherdiv">
+            Nor will this.
+        </div>
+
+        <input type="button" value="Print Div" onclick="PrintElem('#mydiv')" />
+
+        </body>
+        </html>
+    </pre>
+
 
 </div>
