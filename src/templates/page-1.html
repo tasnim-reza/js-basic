@@ -30,11 +30,256 @@
             }
         }
 
-        testList() //item2 undefined 3 times
+        testList() //item2 undefined 3 times that means it doesn't contain the value list[i]
    </pre>
    <p>How we can solve this issues ? </p>
    <pre>
-       
+        function buildList(list) {
+            var result = [];
+            for (var i = 0; i < list.length; i++) {
+                var item = 'item' + i;
+                var value = list[i]; //create local scope
+                result.push( function() {
+                    console.log(item + ' ' + value)
+                });
+            }
+            return result;
+        }
+
+        function testList() {
+            var fnlist = buildList([1,2,3]);
+            // Using j only to help prevent confusion -- could use i.
+            for (var j = 0; j < fnlist.length; j++) {
+                fnlist[j]();
+            }
+        }
+
+        testList() //item2 3  always it gets the last value !! strange
+
+        //what if we create different different scope for each execution ?
+
+        function buildList(list) {
+            var result = [];
+            for (var i = 0; i < list.length; i++) {                
+                var print = (function(val) {
+                    var value = val; //create own scope
+                    var item = 'item' + val;
+                    return function(){
+                        console.log(item + ' ' + value)
+                    }
+                })(list[i]);
+
+                result.push(print);
+            }
+            return result;
+        }
+
+        function testList() {
+            var fnlist = buildList([1,2,3]);
+            // Using j only to help prevent confusion -- could use i.
+            for (var j = 0; j < fnlist.length; j++) {
+                fnlist[j]();
+            }
+        }
+        testList() //item1 1,item2 2,item3 3 Solved !! 
    </pre>
+   <p>
+       A closure in JavaScript is like keeping a copy of all the local variables, just as they were when a function exited.
+       It is possible to get function declarations within function declarations within functions 
+       — and you can get closures at more than one level.
+    <p>
+
     details:<a href="http://stackoverflow.com/questions/111102/how-do-javascript-closures-work"></a>
+</div>
+
+<div class="slide">
+    <h3>What is Function constructor ?</h3>
+   <p>
+       new Function ([arg1[, arg2[, ...argN]],] functionBody)
+   </p>
+   <pre>
+        // Example can be run directly in your JavaScript console
+
+        // Create a function that takes two arguments and returns the sum of those arguments
+        var adder = new Function('a', 'b', 'return a + b');
+
+        // Call the function
+        adder(2, 6);
+        // > 8
+   </pre>
+  <p>
+      Function.length
+        Specifies the number of arguments expected by the function.
+
+    Function.name
+        The name of the function.
+  </p>
+</div>
+
+<div class="slide">
+    <h3>How can I check if one string contains another substring?</h3>   
+   <pre>
+        var string = "foo",
+            substring = "oo";
+        console.log(string.indexOf(substring) > -1);
+   </pre>
+
+    <h3>How can I make a page redirect using jQuery??</h3>   
+   <pre>
+        // similar behavior as an HTTP redirect
+        window.location.replace("http://stackoverflow.com");
+
+        // similar behavior as clicking on a link
+        window.location.href = "http://stackoverflow.com";
+   </pre>
+
+    <h3>What does “use strict” do in JavaScript, and what is the reasoning behind it?</h3>   
+   <p>
+       Strict Mode is a new feature in ECMAScript 5 that allows you to place a program, 
+       or a function, in a "strict" operating context. 
+       This strict context prevents certain actions from being taken and throws more exceptions.
+   </p>
+  <p>
+      Strict mode helps out in a couple ways:
+
+        It catches some common coding bloopers, throwing exceptions.
+        It prevents, or throws errors, when relatively "unsafe" actions are taken 
+            (such as gaining access to the global object).
+        It disables features that are confusing or poorly thought out.
+  </p>
+    <pre>
+        // Non-strict code...
+
+        (function(){
+        "use strict";
+
+        // Define your library strictly...
+        })();
+
+        // Non-strict code... 
+    </pre>
+
+   <h3>
+       Checking if an element is hidden
+   </h3>
+  <pre>
+        // Checks for display:[none|block], ignores visible:[true|false]
+        $(element).is(":visible"); 
+  </pre>
+
+    <h3>
+        var functionName = function() {} vs function functionName() {}
+    </h3>
+    <pre>
+        // TypeError: undefined is not a function
+        functionOne();
+
+        var functionOne = function() {
+            console.log("Hello!");
+        };
+
+        // Outputs: "Hello!"
+        functionTwo();
+
+        function functionTwo() { // hoisting happens
+            console.log("Hello!");
+        }
+    </pre>
+
+    <h3>
+        == vs ===
+    </h3>
+   <p>
+       The identity (===) operator and the equality (==) operator are behaves differently
+       === is for value and type and it is faster
+       == is for value NOT type
+   </p>
+    <pre>
+        1===1 //true
+        1==1 //true
+        1==="1" //false
+        1=="1" //ture
+    </pre>
+
+    <h3>
+        Remove a particular element from an array in JavaScript?
+    </h3>
+    <pre>
+        var array = [2, 5, 9];
+        var index = array.indexOf(5);
+        if (index > -1) {
+            array.splice(index, 1);
+        }
+    </pre>
+   <p>
+       The second parameter of splice is the number of elements to remove.
+       Note that splice modifies the array in place and returns a new array containing the elements that have been removed.
+   </p>
+
+    <h3>
+        What is the most efficient way to clone an object?
+    </h3>
+    <pre>
+        var original = {a: 1};
+
+        // Method 1: New object with original assigned.
+        var copy1 = Object.assign({}, original);
+
+        // Method 2: New object with spread operator assignment.
+        var copy2 = {...original};
+
+        //Notice: it does shallow copy NOT deep
+
+        //jQuery solution
+        // Shallow copy
+        var newObject = jQuery.extend({}, oldObject);
+
+        // Deep copy
+        var newObject = jQuery.extend(true, {}, oldObject);
+    </pre>
+
+    <h3>
+        How do I remove a property from a JavaScript object?
+    </h3>
+    <pre>
+        delete myObject.regex;
+        // or,
+        delete myObject['regex'];
+        // or,
+        var prop = "regex";
+        delete myObject[prop];
+    </pre>
+
+    <h3>
+        Href attribute for JavaScript links: “#” or “javascript:void(0)”?
+    </h3>
+    <pre>
+        <a href="javascript:void(0)">Run JavaScript Code</a>  //preferred way
+        <a href="#" onclick="myJsFunc();">Run JavaScript Code</a>
+        function myJsFunc() {
+            alert("myJsFunc");
+            return false;
+        }
+    </pre>
+
+    <h3>
+        How do you get a timestamp in JavaScript?
+    </h3>
+    <pre>
+        var timestamp = Date.now();
+    </pre>
+
+    <h3>
+        Why does Google prepend while(1); to their JSON responses?
+    </h3>
+   <p>
+       It prevents JSON hijacking.
+       Details: http://haacked.com/archive/2009/06/25/json-hijacking.aspx/
+   </p>
+    <pre>
+        while(1);[['u','a']];
+    </pre>
+   <p>
+
+   </p>
 </div>
