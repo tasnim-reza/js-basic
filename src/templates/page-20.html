@@ -55,5 +55,39 @@
         //PrintElem(/* your html document element */)         
     </pre>
 
+    <h3>What's the difference between console.dir and console.log?</h3>
+    <p>log only prints out a toString representation, whereas dir prints out a navigable tree.</p>
+
+    <h3>How to check if element exists in the visible DOM?</h3>
+    <p> you can use one of flowing methods that exist for finding elements, such as (all living of document):</p>
+    <ul>
+        <li>querySelector()/querySelectorAll()</li>
+        <li>getElementsByClassName()</li>
+        <li>getElementsByName()</li>
+        <li>getElementById()</li>
+    </ul>
+
+    <h3>How I Disable Angular IE Caching issue for $http ?</h3>
+    <p>Instead of disabling caching for each single GET-request, you can disable it globally in the $httpProvider:</p>
+    <pre>
+       myModule.config(['$httpProvider', function($httpProvider) {
+            //initialize get if not there
+            if (!$httpProvider.defaults.headers.get) {
+                $httpProvider.defaults.headers.get = {};
+            }
+            $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+            $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+        }]);
+    </pre>
+
+    <h3>map function for objects (instead of arrays)</h3>
+    <pre>
+        var newObject = Object.keys(myObject).reduce(function(previous, current) {
+            previous[current] = myObject[current] * myObject[current];
+            return previous;
+        }, {});
+
+        console.log(newObject);
+    </pre>
 
 </div>
