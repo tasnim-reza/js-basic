@@ -1,0 +1,444 @@
+<div class="slide">
+    <h3>strip non-numeric characters from string</h3>
+    <pre>
+        /*
+        Use the string's .replace method with a regex of \D, which is a shorthand character class that matches all non-digits:
+        */
+        myString = myString.replace(/\D/g,'');
+    </pre>
+
+    <h3>how to get the last character of a string?</h3>
+    <pre>
+    /*
+    An elegant and short alternative, is the String.prototype.slice method.
+
+    Just by:
+    */
+
+    str.slice(-1);
+
+    /*
+    A negative start index slices the string from length+index, 
+    to length, being index -1, the last character is extracted:
+    */
+    "abc".slice(-1); // "c";
+    </pre>
+
+    <h3>Self-references in object literal declarations</h3>
+    <pre>
+    var foo = {
+    a: 5,
+    b: 6,
+    init: function() {
+        this.c = this.a + this.b;
+        return this;
+    }
+    }.init();
+
+    /*
+    This would be some kind of one time initialization of the object.
+
+    Note that you are actually assigning the return value of init() to foo, therefore you have to return this.
+    */
+    </pre>
+
+    <h3>Why is document.write considered a “bad practice”?</h3>
+    <pre>
+    /*
+    I know document.write is considered bad practice; and I'm hoping to compile a list of reasons to submit to a 3rd party vendor
+    as to why they shouldn't use document.write in implementations of their analytics code.
+    
+    document.write (henceforth DW) does not work in XHTML
+
+    DW executed after the page has finished loading will overwrite the page, or write a new page, or not work
+
+    DW executes where encountered: it cannot inject at a given node point
+
+    DW is effectively writing serialised text which is not the way the DOM works conceptually, 
+    and is an easy way to create bugs (.innerHTML has the same problem)
+
+    */
+    </pre>
+
+    <h3>JavaScript string newline character?</h3>
+    <pre>
+
+        <code><span class="dec">&lt;!doctype html&gt;</span><span class="pln">
+        </span><span class="tag">&lt;script&gt;</span><span class="pln">
+        </span><span class="kwd">function</span><span class="pln"> bar</span><span class="pun">(){</span><span class="pln">
+            baz </span><span class="pun">=</span><span class="pln"> document</span><span class="pun">.</span><span class="pln">getElementById</span><span class="pun">(</span><span class="str">'foo'</span><span class="pun">).</span><span class="pln">value</span><span class="pun">;</span><span class="pln">
+            alert</span><span class="pun">((</span><span class="pln">baz</span><span class="pun">.</span><span class="pln">match</span><span class="pun">(</span><span class="str">/\r/</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> </span><span class="str">'CR'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">' '</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">baz</span><span class="pun">.</span><span class="pln">match</span><span class="pun">(</span><span class="str">/\n/</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&amp;&amp;</span><span class="pln"> </span><span class="str">'LF'</span><span class="pun">));</span><span class="pln">
+            document</span><span class="pun">.</span><span class="pln">getElementById</span><span class="pun">(</span><span class="str">'foo'</span><span class="pun">).</span><span class="pln">value </span><span class="pun">=</span><span class="pln"> </span><span class="str">"foo\nbar"</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="tag">&lt;/script&gt;</span><span class="pln">
+        </span><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">onload</span><span class="pun">=</span><span class="atv">"</span><span class="pln">bar</span><span class="pun">()</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;form&gt;&lt;textarea</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"foo"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"foo"</span><span class="tag">&gt;</span><span class="pln">
+
+        </span><span class="tag">&lt;/textarea&gt;</span><span class="pln">
+        </span><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"submit"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/form&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/body&gt;</span></code>
+        /*
+        
+        IE8 and Opera 9 on Windows use \r\n. All the other browsers I tested (Safari 4 and Firefox 3.5 on Windows, 
+        and Firefox 3.0 on Linux) use \n. They can all handle \n just fine when setting the value, 
+        though IE and Opera will convert that back to \r\n again internally. 
+        There's a SitePoint article with some more details called Line endings in Javascript.
+
+        Note also that this is independent of the actual line endings in the HTML file itself (both \n and \r\n give the same results).
+
+        When submitting the form, all browsers canonicalize newlines to \r\n (%0D%0A in URL encoding).
+
+        I don't think you really need to do much of any determining, though. If you just want to split the text on newlines, you could do something like this:
+        */
+
+        lines = foo.value.split(/\r\n|\r|\n/g);
+    </pre>
+
+    <h3>check for empty strings</h3>
+    <pre>
+    /*
+    Javascript is very flexible with regards to checking for "null" values.
+    */
+
+    if(!value){
+    
+    }
+
+    /*
+    Which will check for empty strings (""), null, undefined, false and the numbers 0 and NaN
+
+    Please note that if you are specifically checking for numbers it is a common mistake to miss 0 with this method, 
+    and num !== 0 is preferred (or num !== -1 or ~num (hacky code that also checks against -1)) for functions that return -1, e.g. indexOf)
+    */
+    </pre>
+
+    <h3>How can I get a Javascript stack trace when I throw an exception?</h3>
+    <pre>
+    /*
+    DescriptionA better solution as pointed out in the comments on the original question is to use the stack property of an Error object like so:
+    */
+
+    function stackTrace() {
+        var err = new Error();
+        return err.stack;
+    }
+    </pre>
+
+    <h3>How do I work around JavaScript's parseInt octal behavior?</h3>
+    <pre>
+    /*
+    This is a common Javascript gotcha with a simple solution:
+    */
+    parseInt('08',10); // 8
+    /*
+    You could also use Number:
+    */
+    Number('08'); // 8
+    </pre>
+
+    <h3>What happened to console.log in IE8?</h3>
+    <pre>
+    /*
+    console.log is only available after you have opened the Developer Tools (F12 to toggle it open and closed). 
+    Funny thing is that after you've opened it, you can close it, then still post to it via console.log calls, 
+    and those will be seen when you reopen it. I'm thinking that is a bug of sorts, and may be fixed, but we shall see.
+
+    I'll probably just use something like this
+    */
+    
+    function trace(s) {
+    if ('console' in self && 'log' in console) console.log(s)
+    // the line below you might want to comment out, so it dies silent
+    // but nice for seeing when the console is available or not.
+    else alert(s)
+    }
+
+    /*
+    and even simpler:
+    */
+
+    function trace(s) {
+    try { console.log(s) } catch (e) { alert(s) }
+    }
+    </pre>
+
+    <h3>Can I make a <button> not submit a form?</h3>
+    <pre>
+    /*
+    <code><span class="tag">&lt;button</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"button"</span><span class="tag">&gt;</span><span class="pln">Submit</span><span class="tag">&lt;/button&gt;</span></code>
+    */
+    </pre>
+
+    <h3>Get real image width and height with JavaScript in Safari/Chrome?</h3>
+    <pre>
+    /*
+    Webkit browsers set the height and width property after the image is loaded. 
+    Instead of using timeouts, I'd recommend using an image's onload event. Here's a quick example:
+    */
+
+    var img = $("img")[0]; // Get my img elem
+    var pic_real_width, pic_real_height;
+    $("<img/>") // Make in memory copy of image to avoid css issues
+        .attr("src", $(img).attr("src"))
+        .load(function() {
+            pic_real_width = this.width;   // Note: $(this).width() will not
+            pic_real_height = this.height; // work for in memory images.
+        });
+
+    /*
+    To avoid any of the effects CSS might have on the image's dimensions, the code above makes an in memory copy of the image.
+    */
+    </pre>
+
+    <h3>Is there a JavaScript/jQuery DOM change listener?</h3>
+    <pre>
+    /*
+    Since this is for a Chrome extension, you might as well use the standard DOM event - DOMSubtreeModified.
+    See the support for this event across browsers. It has been supported in Chrome since 1.0.
+    */
+
+    $("#someDiv").bind("DOMSubtreeModified", function() {
+        alert("tree changed");
+    });
+    </pre>
+
+    <h3>Selecting all text in HTML text input when clicked</h3>
+    <pre>
+    /*
+    You can use this javascript snippet:
+    */
+
+    <code><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">onClick</span><span class="pun">=</span><span class="atv">"</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">select</span><span class="pun">();</span><span class="atv">"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"Sample Text"</span><span class="pln"> </span><span class="tag">/&gt;</span></code>
+
+    /*
+    But apparently it doesn't work on mobile Safari. In those cases you can use:
+    */
+
+    <code><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">onClick</span><span class="pun">=</span><span class="atv">"</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">setSelectionRange</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">value</span><span class="pun">.</span><span class="pln">length</span><span class="pun">)</span><span class="atv">"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"Sample Text"</span><span class="pln"> </span><span class="tag">/&gt;</span></code>
+    </pre>
+
+    <h3>How to reload a page using Javascript?</h3>
+    <pre>
+    /*
+    Javascript 1.0
+    */
+
+    window.location.href = window.location.pathname + window.location.search + window.location.hash;
+    // creates a history entry
+
+    /*
+    Javascript 1.1
+    */
+
+    window.location.replace(window.location.pathname + window.location.search + window.location.hash);
+    // does not create a history entry
+
+    /*
+    Javascript 1.2
+    */
+
+    window.location.reload(false); 
+    // If we needed to pull the document from
+    //  the web-server again (such as where the document contents
+    //  change dynamically) we would pass the argument as 'true'.
+    </pre>
+
+    <h3>Repeat String - Javascript</h3>
+    <pre>
+    /*
+    I'd put this function onto the String object directly. Instead of creating an array, 
+    filling it, and joining it with an empty char, just create an array of the proper length, 
+    and join it with your desired string. Same result, less process!
+    */
+
+    String.prototype.repeat = function( num )
+    {
+        return new Array( num + 1 ).join( this );
+    }
+
+    alert( "string to repeat\n".repeat( 4 ) );
+    </pre>
+
+    <h3>Can't append <script> element</h3>
+    <pre>
+    /*
+    I've seen issues where some browsers don't respect some changes when you do them directly, 
+    but when you do them with built-in commands things go better. Try this:
+    */
+
+    var script = document.createElement( 'script' );
+    script.type = 'text/javascript';
+    script.src = url;
+    $("#someElement").append( script );
+    </pre>
+
+    <h3>Is using 'var' to declare variables optional?</h3>
+    <pre>
+    /*
+    
+    They mean different things. If you use var the variable is declared within the scope you are in (e.g. of the function). 
+    If you don't use var, the variable bubbles up through the layers of scope until it encounters a variable by the given name or 
+    the global object (window, if you are doing it in the browser), where it then attaches.
+    It is then very similar to a global variable. However, it can still be deleted with delete 
+    (most likely by someone else's code who also failed to use var). 
+    If you use var in the global scope, the variable is truly global and cannot be deleted.
+
+    This is, in my opinion, one of the most dangerous issues with javascript, and should be deprecated, 
+    or at least raise warnings over warnings. The reason is, it's easy to forget var and have by accident a common variable name bound to the global object. 
+    This produces weird and difficult to debug behavior.
+
+    */
+    </pre>
+
+    <h3>Why avoid increment (“++”) and decrement (“--”) operators in JavaScript?</h3>
+    <pre>
+    /*
+    My view is to always use ++ and -- by themselves on a single line, as in:
+    */
+
+    i++;
+    array[i] = foo;
+
+    /*
+    instead of 
+    */
+
+    array[++i] = foo;
+
+    /*
+    Anything beyond that can be confusing to some programmers and is just not worth it in my view. 
+    For loops are an exception, as the use of the increment operator is idiomatic and thus always clear.
+    */
+    </pre>
+
+    <h3>Why does [5,6,8,7][1,2] = 8 in Javascript</h3>
+    <pre>
+    /*
+    [1,2,3,4,5,6][1,2,3];
+      ^         ^
+      |         |
+    array       + — array subscript access operation,
+                    where index is `1,2,3`,
+                    which is an expression that evaluates to `3`.
+
+
+    The second [...] cannot be an array, so it’s an array subscript operation. 
+    And the contents of a subscript operation are not a delimited list of operands, but a single expression.    
+    */
+    </pre>
+
+    <h3>What is the difference between JavaScript and ECMAScript?</h3>
+    <pre>
+    /*
+
+    I think a little history lesson is due.
+
+    JavaScript was originally named Mocha and changed to Livescript but ultimately became JavaScript.
+
+    It's important to note that JavaScript came before ECMAscript and the history will tell you why.
+
+    To start from the beginning, JavaScript derived its name from Java and initially Brendan Eich (the creator of JS) was asked to develop a language that resembled Java for the web for Netscape.
+
+    Eich, however decided that Java was too complicated with all its rules and so set out to create a simpler language that even a beginner could code in. 
+    This is evident in such things like the relaxing of the need to have a semicolon.
+
+    After the language was complete, the marketing team of Netscape requested Sun to allow them to name it JavaScript as a marketing stunt and 
+    hence why most people who have never used JavaScript think it's related to Java.
+
+    About a year or two after JavaScript's release in the browser, Microsoft's IE took the language and started making its own implementations such as JScript. 
+    At the same time, IE was dominating the market and not long after Netscape had to shut its project.
+
+    Before Netscape went down, they decided to start a standard that would guide the path of JavaScript, named ECMAScript.
+
+    ECMAScript had a few releases and in 1999 they released their last version (ECMAScript 3) before they went into hibernation for the next 10 years. During this 10 years, 
+    Microsoft dominated the scenes but at the same time they weren't improving their product and hence Firefox was born (led by Eich) and 
+    a whole heap of other browsers such as Chrome, Opera.
+
+    ECMAScript released its 5th Edition in 2009 (the 4th edition was abandoned) with features such as strict mode. Since then, 
+    ECMAScript has gained a lot of momentum and is scheduled to release its 6th Edition in a few months from now with the biggest changes its had thus far.
+
+    You can use a list of features for ECMAScript 6 here http://kangax.github.io/es5-compat-table/es6/ and also the browser support. 
+    You can even start writing Ecmascript 6 like you do with CoffeeScript and use a compiler to compile down to Ecmascript 5.
+
+    Whether ECMAScript is the language and JavaScript is a dialect is arguable, but not important. If you continue to think like this it might confuse you. 
+    There is no compiler out there that would run ECMAScript, and I believe JavaScript is considered the Language which implements a standard called ECMAScript.
+
+    There are also other noticeable languages that implement ECMAScript such as ActionScript (used for Flash)
+
+    */
+    </pre>
+
+    <h3>How to clone a Date object in JavaScript</h3>
+    <pre>
+    /*
+    Use the Date object's getTime() method, which returns the number of milliseconds since 1 January 1970 00:00:00 (epoch time):
+    */
+
+    var date = new Date();
+    var copiedDate = new Date(date.getTime());
+
+    /*
+    In Safari 4, you can also write:
+    */
+
+    var date = new Date();
+    var copiedDate = new Date(date);
+
+    /*
+    ...but I'm not sure whether this works in other browsers. (It seems to work in IE8).
+    */
+    </pre>
+
+    <h3>What is the purpose of a self executing function in javascript?</h3>
+    <pre>
+    /*
+    (function(){
+        //Bunch of code...
+    })();
+
+    Its all about variable scoping. Variables declared in the self executing function are, 
+    by default, only available to code within the self executing function. 
+    This allows code to be written without concern of how variables are named in other blocks of javascript code.
+    */
+    </pre>
+
+    <h3>How to dynamically change a web page's title?</h3>
+    <pre>
+    /*
+
+    You can just do something like, document.title = "This is the new page title.";, 
+    but that would totally defeat the purpose of SEO. Most crawlers aren't going to support javascript in the first place, 
+    so they will take whatever is in the element as the page title.
+
+    If you want this to be compatible with most of the important crawlers, you're going to need to actually change the title tag itself, 
+    which would involve reloading the page (PHP, or the like). You're not going to be able to get around that, 
+    if you want to change the page title in a way that a crawler can see.
+
+    */
+    </pre>
+
+    <h3>How to deal with floating point number precision in JavaScript?</h3>
+    <pre>
+    /*
+    
+
+    What can I do to avoid this problem?
+
+    That depends on what kind of calculations you’re doing.
+
+        If you really need your results to add up exactly, especially when you work with money: use a special decimal datatype.
+        If you just don’t want to see all those extra decimal places: simply format your result 
+        rounded to a fixed number of decimal places when displaying it.
+        If you have no decimal datatype available, an alternative is to work with integers, e.g. 
+        do money calculations entirely in cents. But this is more work and has some drawbacks.
+
+    Note that the first point only applies if you really need specific precise decimal behaviour. Most people don't need that, 
+    they're just irritated that their programs don't work correctly with numbers like 1/10 
+    without realizing that they wouldn't even blink at the same error if it occurred with 1/3.
+
+    If the first point really applies to you, use BigDecimal for JavaScript, which is not elegant at all, 
+    but actually solves the problem rather than providing an imperfect workaround.
+    */
+    </pre>
+</div>
