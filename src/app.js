@@ -70,6 +70,15 @@
             templateUrl: 'templates/page-11.html'
             //handler: homeRouteHandler
         })
+
+        window.routeService.register({
+            name: 'page-12',
+            url: function (param) {
+                return '#/' + this.name;
+            },
+            templateUrl: 'templates/page-12.html'
+            //handler: homeRouteHandler
+        })
     }
 
     function handlePagination() {

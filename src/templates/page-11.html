@@ -4,7 +4,9 @@
         /*
         This methods allows you to easily implement differential inheritance, where objects can directly inherit from other objects.
 
-        On your userB example, I don't think that your init method should be public or even exist, if you call again this method on an existing object instance, the id and name properties will change.
+        On your userB example, I don't think that your init method should be public or even exist, 
+        
+        if you call again this method on an existing object instance, the id and name properties will change.
 
         Object.create lets you initialize object properties using its second argument, e.g.:
         */
@@ -27,7 +29,9 @@
         });
 
         /*
-        As you can see, the properties can be initialized on the second argument of Object.create, with an object literal using a syntax similar to the used by the Object.defineProperties and Object.defineProperty methods.
+        As you can see, the properties can be initialized on the second argument of Object.create, 
+       
+        with an object literal using a syntax similar to the used by the Object.defineProperties and Object.defineProperty methods.
 
         It lets you set the property attributes (enumerable, writable, or configurable), which can be really useful.
         */
@@ -47,7 +51,10 @@
 
         How well are they supported?
 
-        window.onload appears to be the most widely supported. In fact, some of the most modern browsers have in a sense replaced document.onload with window.onload. Browser support issues are most likely the reason why many people are starting to use libraries such as jQuery to handle the checking for the document being ready.
+        window.onload appears to be the most widely supported. In fact, 
+        some of the most modern browsers have in a sense replaced document.onload with window.onload. 
+        Browser support issues are most likely the reason why many people are starting to use libraries 
+        such as jQuery to handle the checking for the document being ready.
     </div>
 
     <h3>How to send FormData objects with Ajax-requests in jQuery?</h3>
@@ -93,7 +100,8 @@
     <h3>How do I replace a character at a particular index in JavaScript?</h3>
     <pre>
         /*
-        In JavaScript, strings are immutable, which means the best you can do is create a new string with the changed content, and assign the variable to point to it.
+        In JavaScript, strings are immutable, which means the best you can do is create a new string with the changed content, 
+        and assign the variable to point to it.
 
         You'll need to define the replaceAt() function yourself:
         */
@@ -109,7 +117,8 @@
     <h3>Most efficient way to create a zero filled JavaScript array?</h3>
     <pre>
         /*
-        Although this is an old thread, I wanted to add my 2 cents to it. Not sure how slow/fast this is, but it's a quick one liner. Here is what I do:
+        Although this is an old thread, I wanted to add my 2 cents to it. Not sure how slow/fast this is, 
+        but it's a quick one liner. Here is what I do:
 
         If I want to pre-fill with a number:
         */
@@ -142,7 +151,9 @@
     <h3>How to trigger event in JavaScript?</h3>
     <pre>
         /*
-        You can use fireEvent on IE, and w3c's dispatchEvent on most other browsers. To create the event you want to fire, you can use either createEvent or createEventObject depending on the browser.
+        You can use fireEvent on IE, and w3c's dispatchEvent on most other browsers. To create the event you want to fire, 
+        
+        you can use either createEvent or createEventObject depending on the browser.
 
         Here is a self-explanatory piece of code (from prototype) that fires an event dataavailable on an element:
         */
@@ -171,13 +182,19 @@
     <pre>
         /*
 
-        If you want it to work in browsers that don't support history.pushState and history.popState yet, the "old" way is to set the fragment identifier, which won't cause a page reload.
+        If you want it to work in browsers that don't support history.pushState and history.popState yet, 
+        the "old" way is to set the fragment identifier, which won't cause a page reload.
 
-        The basic idea is to set the window.location.hash property to a value that contains whatever state information you need, then either use the window.onhashchange event, or for older browsers that don't support onhashchange (IE < 8, Firefox < 3.6), periodically check to see if the hash has changed (using setInterval for example) and update the page. You will also need to check the hash value on page load to set up the initial content.
+        The basic idea is to set the window.location.hash property to a value that contains whatever state information you need,
+         then either use the window.onhashchange event, or for older browsers that don't support onhashchange (IE < 8, Firefox < 3.6),
+          periodically check to see if the hash has changed (using setInterval for example) and update the page.
+           You will also need to check the hash value on page load to set up the initial content.
 
-        If you're using jQuery there's a hashchange plugin that will use whichever method the browser supports. I'm sure there are plugins for other libraries as well.
+        If you're using jQuery there's a hashchange plugin that will use whichever method the browser supports.
+         I'm sure there are plugins for other libraries as well.
 
-        One thing to be careful of is colliding with ids on the page, because the browser will scroll to any element with a matching id.
+        One thing to be careful of is colliding with ids on the page, 
+        because the browser will scroll to any element with a matching id.
 
         */
 
@@ -195,7 +212,8 @@
     <pre>
         /*
 
-        Versions of IE before IE9 don't have an .indexOf() function for Array, to define the exact spec version, run this before trying to use it:
+        Versions of IE before IE9 don't have an .indexOf() function for Array, 
+        to define the exact spec version, run this before trying to use it:
 
         */
 
@@ -224,7 +242,8 @@
        
        /*
 
-        This is the version from MDC, used in Firefox/SpiderMonkey. In other cases such as IE, it'll add .indexOf() in the case it's missing...basically IE8 or below at this point.
+        This is the version from MDC, used in Firefox/SpiderMonkey. 
+        In other cases such as IE, it'll add .indexOf() in the case it's missing...basically IE8 or below at this point.
 
         */
     </pre>
@@ -249,9 +268,11 @@
         /*
         
 
-        My crystal ball says that you are loading the model using either file:// or C:/, which stays true to the error message as they are not http://
+        My crystal ball says that you are loading the model using either file:// or C:/,
+         which stays true to the error message as they are not http://
 
-        So you can either install a webserver in your local PC or upload the model somewhere else and use jsonp and change the url to http://example.com/path/to/model
+        So you can either install a webserver in your local PC or upload the model somewhere else and use jsonp 
+        and change the url to http://example.com/path/to/model
 
         */
     </pre>
@@ -273,7 +294,9 @@
         }
 
         /*
-        If you need a solution that supports UTF-16 or other multi-byte characters, be aware that this function will give invalid unicode strings, or valid strings that look funny. You might want to consider this answer instead.
+        If you need a solution that supports UTF-16 or other multi-byte characters, 
+        be aware that this function will give invalid unicode strings, or valid strings that look funny. 
+        You might want to consider this answer instead.
         */
     </pre>
 
@@ -315,18 +338,21 @@
         isEmpty({length: 3, custom_property: [1,2,3]}) // false
 
         /*
-        If you only need to handle ECMAScript5 browsers, you can use Object.getOwnPropertyNames instead of the hasOwnProperty loop:
+        If you only need to handle ECMAScript5 browsers, you can use Object.getOwnPropertyNames 
+        instead of the hasOwnProperty loop:
 
         if (Object.getOwnPropertyNames(obj).length > 0) return false;
 
-        This will ensure that even if the object only has non-enumerable properties isEmpty will still give you the correct results.
+        This will ensure that even if the object only has non-enumerable properties isEmpty will still give you 
+        the correct results.
         */
     </pre>
 
     <h3>What underlies this JavaScript idiom: var self = this?</h3>
     <pre>
         /*
-        self is being used to maintain a reference to the original this even as the context is changing. It's a technique often used in event handlers (especially in closures).
+        self is being used to maintain a reference to the original this even as the context is changing. 
+        It's a technique often used in event handlers (especially in closures).
         */
     </pre>
 
@@ -391,9 +417,11 @@
         <div data-internalid="1337"></div>
 
         /*
-        In XHTML, this is not really valid. If you are in XHTML 1.1 mode, the browser will probably complain about it, but in 1.0 mode, most browsers will just silently ignore it.
+        In XHTML, this is not really valid. If you are in XHTML 1.1 mode, the browser will probably complain about it,
+         but in 1.0 mode, most browsers will just silently ignore it.
 
-        If I were you, I would follow the script based approach. You could make it automatically generated on server side so that it's not a pain in the back to maintain.
+        If I were you, I would follow the script based approach. 
+        You could make it automatically generated on server side so that it's not a pain in the back to maintain.
         
         */
     </pre>
@@ -446,7 +474,8 @@
     <h3>How to count string occurrence in string?</h3>
     <pre>
         /*
-        The g in the regular expression (short for global) says to search the whole string rather than just find the first occurrence:
+        The g in the regular expression (short for global) says to search the whole string rather than just find 
+        the first occurrence:
         */
         var temp = "This is a string.";
         var count = (temp.match(/is/g) || []).length;
@@ -486,7 +515,8 @@
         /*
         UPDATE:
 
-        document.createEvent("TouchEvent") have started to return true in the latest chrome (v. 17). Modernizr updated this a while ago. Check Modernizr test out here.
+        document.createEvent("TouchEvent") have started to return true in the latest chrome (v. 17). 
+        Modernizr updated this a while ago. Check Modernizr test out here.
 
         Update your function like this to make it work:
         */
@@ -507,7 +537,8 @@
         /*
         UPDATE:
 
-        'onmsgesturechange' in window will return true in some IE desktop versions so thats not reliable. This works slightly more reliably:
+        'onmsgesturechange' in window will return true in some IE desktop versions so thats not reliable. 
+        This works slightly more reliably:
         */
         function is_touch_device() {
             return 'ontouchstart' in window        // works on most browsers 
@@ -518,5 +549,226 @@
 
         But these are all still far from perfect. For a good article that explains the issues with touch detection, 
         */
+    </pre>
+
+    <h3>Format number to always show 2 decimal places</h3>
+    <pre>
+        function round(number){
+            parseFloat(Math.round(number * 100) / 100).toFixed(2);
+        }
+    </pre>
+    
+    <h3>Sorting JavaScript Object by property value</h3>
+    <pre>
+        var maxSpeed = {
+            car:300, bike:60, motorbike:200, airplane:1000,
+            helicopter:400, rocket:8*60*60
+        }
+        var sortable = [];
+        for (var vehicle in maxSpeed)
+            sortable.push([vehicle, maxSpeed[vehicle]])
+        sortable.sort(
+            function(a, b) {
+                return a[1] - b[1]
+            }
+        )
+        //[["bike", 60], ["motorbike", 200], ["car", 300],
+        //["helicopter", 400], ["airplane", 1000], ["rocket", 28800]]
+    </pre>
+
+    <h3>Resize HTML5 canvas to fit window</h3>
+    <pre>
+        JavaScript
+        
+        /* important! for alignment, you should make things
+        * relative to the canvas' current width/height.
+        */
+        function draw() {
+        var ctx = (a canvas context);
+        ctx.canvas.width  = window.innerWidth;
+        ctx.canvas.height = window.innerHeight;
+        //...drawing code...
+        }
+
+        CSS
+        ================
+        html, body {
+        width:  100%;
+        height: 100%;
+        margin: 0px;
+        }
+    </pre>
+
+    <h3>How to access the correct `this` / context inside a callback?</h3>
+    <pre>
+    /*
+    this (aka "the context") is a special keyword inside each function and its value only depends on how the function was called,
+    not how/when/where it was defined. It is not affected by lexical scope, like other variables. Here are some examples:
+    */
+
+    function foo() {
+        console.log(this);
+    }
+
+    // normal function call
+    foo(); // `this` will refer to `window`
+
+    // as object method
+    var obj = {bar: foo};
+    obj.bar(); // `this` will refer to `obj`
+
+    // as constructor function
+    new foo(); // `this` will refer to an object that inherits from `foo.prototype`
+
+    /*
+    To learn more about this, have a look at the MDN documentation.
+    */
+
+    /*
+     # How to refer to the correct this
+
+     ## Don't use this
+
+    You actually don't want to access this in particular, 
+    but the object it refers to. That's why an easy solution is to simply create a new variable that also refers to that object. 
+    The variable can have any name, but common ones are self and that.
+    */
+    
+    function MyConstructor(data, transport) {
+        this.data = data;
+        var self = this;
+        transport.on('data', function() {
+            alert(self.data);
+        });
+    }
+
+    /*
+    Since self is a normal variable, it obeys lexical scope rules and is accessible inside the callback. 
+    This also has the advantage that you can access the this value of the callback itself.
+
+    ## Explicitly set this of the callback - part 1
+
+    It might look like you have no control over the value of this, because its value is set automatically, but that is actually not the case.
+
+    Every function has the method .bind [docs], which returns a new function with this bound to a value. 
+    The function has exactly the same behavior as the one you called .bind on, only that this was set by you. 
+    No matter how or when that function is called, this will always refer to the passed value.
+    */
+
+    function MyConstructor(data, transport) {
+        this.data = data;
+        var boundFunction = (function() { // parenthesis are not necessary
+            alert(this.data);             // but might improve readability
+        }).bind(this); // <- here we are calling `.bind()` 
+        transport.on('data', boundFunction);
+    }
+
+    /*
+    In this case, we are binding the callback's this to the value of MyConstructor's this.
+
+    Note: When binding context for jQuery, use jQuery.proxy [docs] instead. 
+    The reason to do this is so that you don't need to store the reference to the function when unbinding an event callback. 
+    jQuery handles that internally. 
+
+    ## ECMAScript 6: Use arrow functions
+
+    ECMASCript 6 introduces arrow functions, which can be thought of as lambda functions. 
+    They don't have their own this binding. Instead, this is looked up in scope just like a normal variable. 
+    That means you don't have to call .bind. That's not the only special behavior they have, 
+    please refer to the MDN documentation for more information. 
+    */
+
+    function MyConstructor(data, transport) {
+        this.data = data;
+        transport.on('data', () => alert(this.data));
+    }
+
+    /*
+    ## Set this of the callback - part 2
+
+    Some functions/methods which accept callbacks also accept a value to which the callback's this should refer to. 
+    This is basically the same as binding it yourself, but the function/method does it for you. 
+    Array#map [docs] is such a method. Its signature is:
+    */
+
+    array.map(callback[, thisArg])
+
+    /*
+    The first argument is the callback and the second argument is the value this should refer to. Here is a contrived example:
+    */
+    
+    var arr = [1, 2, 3];
+    var obj = {multiplier: 42};
+
+    var new_arr = arr.map(function(v) {
+        return v * this.multiplier;
+    }, obj); // <- here we are passing `obj` as second argument
+
+
+    /*
+    Note: Whether or not you can pass a value for this is usually mentioned in the documentation of that function/method. For example,
+    jQuery's $.ajax method [docs] describes an option called context:
+    This object will be made the context of all Ajax-related callbacks.
+
+
+    ## Common problem: Using object methods as callbacks / event handlers
+
+    Another common manifestation of this problem is when an object method is used as callback / event handler. 
+    Functions are first class citizens in JavaScript and the term "method" is just a colloquial term for a function that is a value of an object property. 
+    But that function doesn't have a specific link to its "containing" object.
+
+    Consider the following example:
+    */
+
+    function Foo() {
+        this.data = 42,
+        document.body.onclick = this.method;
+    }
+
+    Foo.prototype.method = function() {
+        console.log(this.data);
+    };
+
+    /*
+    The function this.method is assigned as click event handler, but if the body is clicked, the value logged will be undefined, 
+    because inside the event handler, this refers to the body, not the instance of Foo.
+    As already mentioned at the beginning, what this refers to depends on how the function is called, not how it is defined.
+    If the code was like the following, it might be more obvious that the function doesn't have an implicit reference to the object:
+    */
+
+    function method() {
+        console.log(this.data);
+    }
+
+
+    function Foo() {
+        this.data = 42,
+        document.body.onclick = this.method;
+    }
+
+    Foo.prototype.method = method;
+
+    /*
+    The solution is the same as mentioned above: If available, use .bind to explicitly bind this to a specific value
+    */
+
+    document.body.onclick = this.method.bind(this);
+
+    /*
+    or explicitly call the function as a "method" of the object, 
+    by using an anonymous function has callback / event handler and assign the object (this) to another variable:
+    */
+
+    var self = this;
+    document.body.onclick = function() {
+        self.method();
+    };
+
+    /*
+    or use an arrow function:
+    */
+
+    document.body.onclick = () => this.method();
+
     </pre>
 </div>
