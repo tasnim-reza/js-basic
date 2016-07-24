@@ -282,4 +282,111 @@
    <p>
 
    </p>
+   
+   <h3>How do I return the response from an asynchronous call?</h3>
+   <p>
+       Use promise or callback, otherwise you can't return from your async call
+   </p>
+   
+   <h3>What is the difference between call and apply?</h3>
+   <p>The difference is that apply lets you invoke the function with arguments as an 
+       array; call requires the parameters be listed explicitly. 
+       A useful mnemonic is "A for array and C for comma."</p>
+    <pre>
+        function theFunction(name, profession) {
+            console.log("My name is " + name + " and I am a " + profession + ".");
+        }
+        theFunction("John", "fireman");
+        theFunction.apply(undefined, ["Susan", "school teacher"]);
+        theFunction.call(undefined, "Claude", "mathematician");
+    </pre>
+    
+    <h3>event.preventDefault() vs. return false</h3>
+    <p>
+        return false from within a jQuery event handler is effectively 
+        the same as calling both e.preventDefault and e.stopPropagation 
+        on the passed jQuery.Event object.
+
+        e.preventDefault() will prevent the default event from occuring, 
+        e.stopPropagation() will prevent the event from bubbling up and 
+        return false will do both. Note that this behaviour differs from 
+        normal (non-jQuery) event handlers, in which, notably, 
+        return false does not stop the event from bubbling up.
+    </p>
+    
+    <h3>How can I upload files asynchronously?</h3>
+    <pre>
+        $(':button').click(function(){
+            var formData = new FormData($('form')[0]);
+            $.ajax({
+                url: 'upload.php',  //Server script to process data
+                type: 'POST',
+                xhr: function() {  // Custom XMLHttpRequest
+                    var myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // Check if upload property exists
+                        myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+                    }
+                    return myXhr;
+                },
+                //Ajax events
+                beforeSend: beforeSendHandler,
+                success: completeHandler,
+                error: errorHandler,
+                // Form data
+                data: formData,
+                //Options to tell jQuery not to process data or worry about content-type.
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+    </pre>
+    
+    <h3>Capitalize the first letter of string in JavaScript</h3>
+    <pre>
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+    </pre>
+    
+    <h3>How do I append to an array in JavaScript?</h3>
+    <p>concat and push</p>
+    <pre>
+        // append multiple values to the array
+        arr.push("Salut", "Hey");
+        
+        var a = [1,2];
+        Array.prototype.push.apply(a, [5,6])
+        console.log(a) //1,2,5,6
+        
+        a = a.concat([5,6]);
+    </pre>
+    
+    <h3>Detecting an undefined object property</h3>
+    <pre>
+        if (typeof something === "undefined") {
+            alert("something is undefined");
+        }
+    </pre>
+    
+    <h3>Validate decimal numbers in JavaScript - IsNumeric()</h3>
+    <pre>
+        function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+    </pre>
+    
+    <h3>Copy to clipboard</h3>
+    <pre>
+        function copyToClipboard(text) {
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+        }
+    </pre>
+    
+    <h3>Get current URL in web browser</h3>
+    <pre>
+        window.location.href 
+    </pre>
+    
+    <h3></h3>
 </div>
