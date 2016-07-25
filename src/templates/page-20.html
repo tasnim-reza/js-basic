@@ -90,4 +90,62 @@
         console.log(newObject);
     </pre>
 
+    <h3>What's the best method to get the index of an array which contains objects?</h3>
+    <pre>
+        var hello = {
+            hello: 'world',
+            foo: 'bar'
+        };
+        var qaz = {
+            hello: 'stevie',
+            foo: 'baz'
+        }
+
+        var myArray = [];
+        myArray.push(hello,qaz);
+
+        function arrayObjectIndexOf(myArray, searchTerm, property) {
+            for(var i = 0, len = myArray.length; i < len; i++) {
+                if (myArray[i][property] === searchTerm) return i;
+            }
+            return -1;
+        }
+        arrayObjectIndexOf(arr, "stevie", "hello");
+    </pre>
+    <h3>Get difference between 2 dates in javascript?</h3>
+    <pre>
+        var date1 = new Date("7/13/2010");
+        var date2 = new Date("12/15/2010");
+        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        console.log(diffDays);
+    </pre>
+    <h3>How can I beautify JSON programmatically?</h3>
+    <pre>
+       JSON.stringify(jsObj, null, 4);
+    </pre>
+    <h3>How can I make a visitor's browser go fullscreen using JavaScript, in a way that works with IE, Firefox and Opera?</h3>
+    <pre>
+        window.onload = maxWindow;
+
+        function maxWindow() {
+            window.moveTo(0, 0);
+
+
+            if (document.all) {
+                top.window.resizeTo(screen.availWidth, screen.availHeight);
+            }
+
+            else if (document.layers || document.getElementById) {
+                if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+                    top.window.outerHeight = screen.availHeight;
+                    top.window.outerWidth = screen.availWidth;
+                }
+            }
+        }
+    </pre>
+    <h3>How to convert image into base64 string using javascript ?</h3>
+    <p>Create a canvas, load your image into it and then use toDataURL() to get the base64 representation (actually, it's a data: URL but it contains the base64-encoded image).</p>
+    <h3>How do I determine the exact browser and version using JavaScript?</h3>
+
 </div>
