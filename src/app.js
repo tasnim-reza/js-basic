@@ -133,3 +133,4 @@
 
     routeService.registerOnRouteLoad(handleSlider);    
 })()
+
