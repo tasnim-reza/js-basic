@@ -191,4 +191,37 @@
             head.appendChild(link);
         }
     </pre>
+    <h3>Does JavaScript have the interface type (such as Java's 'interface')?</h3>
+    <p>1. JavaScript inheritance is based on objects, not classes.</p>
+    <p>JavaScript is an extremely dynamically typed language -- you can create an object with the proper methods, which would make it conform to the interface, and then undefine all the stuff that made it conform. It'd be so easy to subvert the type system -- even accidentally! -- that it wouldn't be worth it to try and make a type system in the first place.</p>
+
+    <h3>How prevent BODY from scrolling when a modal is opened ?</h3>
+    <pre>
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        $("#myModal").on("show", function () {
+          $("body").addClass("modal-open");
+        }).on("hidden", function () {
+          $("body").removeClass("modal-open")
+        });
+    </pre>
+
+    <h3>Get JavaScript object from array of objects by value or property</h3>
+    <pre>
+        var jsObjects = [
+           {a: 1, b: 2},
+           {a: 3, b: 4},
+           {a: 5, b: 6},
+           {a: 7, b: 8}
+        ];
+
+        var result = jsObjects.filter(function( obj ) {
+          return obj.b == 6;
+        });
+
+        console.log(result);
+    </pre>
+    <h3></h3>
 </div>
